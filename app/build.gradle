@@ -44,6 +44,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.android.ads:mediation-test-suite:3.0.0'
+    implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
 
 
 }
