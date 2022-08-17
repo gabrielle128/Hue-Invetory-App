@@ -6,14 +6,25 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.budiyev.android.codescanner.*;
 import com.google.zxing.Result;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 
 public class Inbound extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_CODE = 100;
@@ -29,6 +40,8 @@ public class Inbound extends AppCompatActivity {
 
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
+
+        mCodeScanner.setScanMode(ScanMode.SINGLE);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull final Result result) {
@@ -41,10 +54,28 @@ public class Inbound extends AppCompatActivity {
                 });
             }
         });
-        scannerView.setOnClickListener(new View.OnClickListener() {
+
+         scannerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mCodeScanner.startPreview();
+            }
+        });
+
+        Button btnTestButton = findViewById(R.id.testButton);
+        Button btnTestButton2 = findViewById(R.id.testButton2);
+
+        btnTestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scanResult("100013202");
+            }
+        });
+
+        btnTestButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scanResult("100013203");
             }
         });
     }
@@ -92,23 +123,49 @@ public class Inbound extends AppCompatActivity {
                 Toast.makeText(Inbound.this, "Camera Permission Granted", Toast.LENGTH_SHORT) .show();
             }
             else {
-                Toast.makeText(Inbound.this, "Camera Permission Denied", Toast.LENGTH_SHORT) .show();
+                Toast.makeText(Inbound.this, "Camera Permission Required", Toast.LENGTH_SHORT) .show();
             }
         }
     }
 
-    public void scanResult(String result) {
+    Map<String, Shoe> inventory = new HashMap<>();
+    @SuppressLint("SetTextI18n")
+    public void scanResult(String result){
         TextView barcodeScan, productInfo, scanCount;
         barcodeScan = findViewById(R.id.barcodeScan);
         productInfo = findViewById(R.id.productInfo);
         scanCount = findViewById(R.id.scanCount);
 
+        // Display scanned code
         barcodeScan.setText((CharSequence) result);
 
-        int count = Integer.parseInt(scanCount.getText().toString()) + 1;
-        scanCount.setText(String.valueOf(count));
+        // Create or edit shoe class object
+        Shoe shoe = null;
+        if(inventory.containsKey(result)) {
+            // Increment on existing inventory object
+            shoe = inventory.get(result);
+            Log.d("Inventory", "Old");
+        } else {
+            // Create new shoe object
+            inventory.put(result, (Shoe) CreateShoeObj(result));
+            shoe = inventory.get(result);
+            Log.d("Inventory", "New");
+        }
 
-        Shoe shoe = new Shoe((String) result);
-        productInfo.setText("Name: " + shoe.name + " Size: " + shoe.size + " Color: " + shoe.color);
+        Objects.requireNonNull(shoe).count += 1;
+        productInfo.setText(MessageFormat.format("Name: {0} Size: {1} Color: {2}", shoe.name, shoe.size, shoe.color));
+        scanCount.setText(shoe.count.toString());
+    }
+
+    private Object CreateShoeObj(String result) {
+        try {
+            Class<?> c = Class.forName("com.example.myapplication.Shoe");
+            Constructor<?> con = c.getConstructor(String.class);
+            return (Shoe) con.newInstance(result);
+        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
