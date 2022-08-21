@@ -8,23 +8,23 @@
 
     <com.budiyev.android.codescanner.CodeScannerView
         android:id="@+id/scanner_view"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        app:frameAspectRatioHeight=".5"
+        app:frameAspectRatioWidth="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.021"
-        app:frameAspectRatioHeight=".5"
-        app:frameAspectRatioWidth="2"
-        app:maskColor="#6C000000"/>
+        app:layout_constraintVertical_bias="0.048"
+        app:maskColor="#6C000000" />
 
     <TextView
         android:id="@+id/barcodeScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ScanBarcode"
+        android:text="Barcode"
         app:layout_constraintBottom_toTopOf="@+id/textInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +37,8 @@
         android:layout_height="wrap_content"
         android:text="Product Information"
         app:layout_constraintBottom_toTopOf="@+id/productInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.241"
+        app:layout_constraintEnd_toStartOf="@+id/scanCount"
+        app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scanner_view"
         app:layout_constraintVertical_bias="1.0" />
@@ -47,11 +47,11 @@
         android:id="@+id/productInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="220dp"
+        android:layout_marginBottom="152dp"
         android:text="Name: Size: Color:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.232"
+        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -61,10 +61,10 @@
         android:text="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.836"
+        app:layout_constraintHorizontal_bias="0.936"
         app:layout_constraintStart_toEndOf="@+id/productInfo"
         app:layout_constraintTop_toBottomOf="@+id/barcodeScan"
-        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintVertical_bias="0.074" />
 
     <Button
         android:id="@+id/testButton"
@@ -73,21 +73,53 @@
         android:text="Debug"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productInfo"
-        app:layout_constraintVertical_bias="0.523" />
+        app:layout_constraintVertical_bias="0.906" />
 
     <Button
-        android:id="@+id/testButton2"
+        android:id="@+id/confirmBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
+        app:layout_constraintHorizontal_bias="0.948"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productInfo"
-        app:layout_constraintVertical_bias="0.523" />
+        app:layout_constraintVertical_bias="0.906" />
+
+    <EditText
+        android:id="@+id/barcodeManualAdd"
+        android:layout_width="277dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Enter Barcode"
+        app:layout_constraintBottom_toTopOf="@+id/testButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.246"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productInfo"
+        app:layout_constraintVertical_bias="0.592" />
+
+    <Button
+        android:id="@+id/manualAddBtn"
+        android:layout_width="45dp"
+        android:layout_height="46dp"
+        android:text="+"
+        app:layout_constraintBottom_toTopOf="@+id/confirmBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toEndOf="@+id/barcodeManualAdd"
+        app:layout_constraintTop_toBottomOf="@+id/scanCount"
+        app:layout_constraintVertical_bias="0.775" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="448dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

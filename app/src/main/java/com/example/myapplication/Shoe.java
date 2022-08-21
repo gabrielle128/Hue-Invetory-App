@@ -17,8 +17,4 @@ public class Shoe {
         size = code.substring(5, 7);
         color = database.get(code.substring(7, 9));
     }
-
-    public void AddInv() {
-        count = count + 1;
-    }
 }

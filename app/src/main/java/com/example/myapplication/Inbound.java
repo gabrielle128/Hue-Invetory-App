@@ -10,13 +10,12 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.budiyev.android.codescanner.*;
-import com.google.zxing.Result;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -29,7 +28,6 @@ import java.util.Objects;
 public class Inbound extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_CODE = 100;
     private CodeScanner mCodeScanner;
-    private Object result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,41 +40,27 @@ public class Inbound extends AppCompatActivity {
         mCodeScanner = new CodeScanner(this, scannerView);
 
         mCodeScanner.setScanMode(ScanMode.SINGLE);
-        mCodeScanner.setDecodeCallback(new DecodeCallback() {
-            @Override
-            public void onDecoded(@NonNull final Result result) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Toast.makeText(Inbound.this, result.getText(), Toast.LENGTH_SHORT).show();
-                        scanResult(result.getText());
-                    }
-                });
-            }
-        });
+        mCodeScanner.setDecodeCallback(result -> runOnUiThread(() -> {
+            //Toast.makeText(Inbound.this, result.getText(), Toast.LENGTH_SHORT).show();
+            scanResult(result.getText());
+        }));
 
-         scannerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCodeScanner.startPreview();
-            }
-        });
+         scannerView.setOnClickListener(view -> mCodeScanner.startPreview());
 
         Button btnTestButton = findViewById(R.id.testButton);
-        Button btnTestButton2 = findViewById(R.id.testButton2);
+        Button confirmBtn = findViewById(R.id.confirmBtn);
+        Button manualAddBtn = findViewById(R.id.manualAddBtn);
 
-        btnTestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                scanResult("100013202");
-            }
-        });
+        // Button for testing
+        btnTestButton.setOnClickListener(view -> scanResult("100013202"));
 
-        btnTestButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                scanResult("100013203");
-            }
+        // Confirm button to update the database
+        confirmBtn.setOnClickListener(view -> scanResult("100013203"));
+
+        // Manually add item to database, if scanner is not working
+        manualAddBtn.setOnClickListener(view -> {
+            EditText barcodeText = (EditText) findViewById(R.id.barcodeManualAdd);
+            scanResult(barcodeText.getText().toString());
         });
     }
 
@@ -93,10 +77,8 @@ public class Inbound extends AppCompatActivity {
     }
 
     // Function to check and request permission.
-    public void checkPermission(String permission, int requestCode)
-    {
+    public void checkPermission(String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(Inbound.this, permission) == PackageManager.PERMISSION_DENIED) {
-
             // Requesting the permission
             ActivityCompat.requestPermissions(Inbound.this, new String[] { permission }, requestCode);
         }
@@ -108,7 +90,6 @@ public class Inbound extends AppCompatActivity {
     // This function is called when the user accepts or decline the permission.
     // Request Code is used to check which permission called this function.
     // This request code is provided when the user is prompt for permission.
-
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -119,18 +100,17 @@ public class Inbound extends AppCompatActivity {
                 grantResults);
 
         if (requestCode == CAMERA_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 Toast.makeText(Inbound.this, "Camera Permission Granted", Toast.LENGTH_SHORT) .show();
-            }
-            else {
+            else
                 Toast.makeText(Inbound.this, "Camera Permission Required", Toast.LENGTH_SHORT) .show();
-            }
         }
     }
 
     Map<String, Shoe> inventory = new HashMap<>();
     @SuppressLint("SetTextI18n")
     public void scanResult(String result){
+        Log.d("Result", result);
         TextView barcodeScan, productInfo, scanCount;
         barcodeScan = findViewById(R.id.barcodeScan);
         productInfo = findViewById(R.id.productInfo);
@@ -139,19 +119,26 @@ public class Inbound extends AppCompatActivity {
         // Display scanned code
         barcodeScan.setText((CharSequence) result);
 
-        // Create or edit shoe class object
-        Shoe shoe = null;
+        // Create or edit shoe object
+        Shoe shoe;
         if(inventory.containsKey(result)) {
             // Increment on existing inventory object
             shoe = inventory.get(result);
             Log.d("Inventory", "Old");
         } else {
-            // Create new shoe object
-            inventory.put(result, (Shoe) CreateShoeObj(result));
-            shoe = inventory.get(result);
-            Log.d("Inventory", "New");
+            // Check if barcode is valid or invalid
+            if(CheckItemDB(result)) {
+                // Create new shoe object
+                inventory.put(result, (Shoe) CreateShoeObj(result));
+                shoe = inventory.get(result);
+                Log.d("Inventory", "New");
+            } else {
+                Toast.makeText(this, "ITEM NOT FOUND IN DATABASE", Toast.LENGTH_LONG).show();
+                return;
+            }
         }
 
+        // Update count and product information
         Objects.requireNonNull(shoe).count += 1;
         productInfo.setText(MessageFormat.format("Name: {0} Size: {1} Color: {2}", shoe.name, shoe.size, shoe.color));
         scanCount.setText(shoe.count.toString());
@@ -165,7 +152,11 @@ public class Inbound extends AppCompatActivity {
         } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
-
         return null;
+    }
+
+    private boolean CheckItemDB(String result) {
+        // Replace code with check if item exists in the database
+        return result.length() == 9;
     }
 }
