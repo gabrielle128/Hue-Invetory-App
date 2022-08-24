@@ -20,6 +20,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button Outbound;
+    Button Inventory;
 
 
     @Override
@@ -27,11 +28,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Inventory = findViewById(R.id.btnInventory);
+        Inventory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentinventory = new Intent(MainActivity.this, inventory.class);
+                startActivity(intentinventory);
+            }
+        });
         Outbound = findViewById(R.id.btnInbound);
         Outbound.setOnClickListener(this);
 
 
         };
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
