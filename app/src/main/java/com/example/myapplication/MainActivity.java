@@ -12,6 +12,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +23,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button Outbound;
+    ImageButton menupopbtn;
 
 
     @Override
@@ -30,32 +34,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Outbound = findViewById(R.id.btnInbound);
         Outbound.setOnClickListener(this);
 
+        menupopbtn = findViewById(R.id.menupopbtn);
+        menupopbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(getApplicationContext(), menupopbtn);
+                popupMenu.getMenuInflater().inflate(R.menu.option_menu, popupMenu.getMenu());
 
-        };
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()){
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.option_menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+                            case R.id.resetUserPassword:
+                                startActivity(new Intent(getApplicationContext(),Resetpassword.class));
+                                return true;
 
+                            case R.id.logoutbtn:
+                                FirebaseAuth.getInstance().signOut();
+                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                finish();
+                                return true;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
 
-
-
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.resetUserPassword){
-            startActivity(new Intent(getApplicationContext(),Resetpassword.class));
         }
-        if (item.getItemId() == R.id.logoutbtn){
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
 
     @Override
     public void onClick(View v) {

@@ -23,7 +23,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
-    Button loginBtn,forgetpasswordbtn;
+    Button loginBtn,forgetpasswordbtn, registerbtn;
     EditText username,password;
     FirebaseAuth firebaseAuth;
     AlertDialog.Builder reset_alert;
@@ -46,43 +46,51 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.loginpassword);
         loginBtn = findViewById(R.id.loginbtn);
         forgetpasswordbtn = findViewById(R.id.forgetpassbtn);
+        registerbtn = findViewById(R.id.registerbtn);
 
         forgetpasswordbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // start alert
-                View view = inflater.inflate(R.layout.reset_pop, null);
-
-                reset_alert.setTitle("Reset Forget Password")
-                        .setMessage("Enter Your Email To Reset")
-                        .setPositiveButton("Reset", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // Validate the email address
-                                EditText email = view.findViewById(R.id.resetemailpop);
-                                if (email.getText().toString().isEmpty()){
-                                    email.setError("Required Field");
-                                    return;
-                                }
-                                //send the reset Link
-                                firebaseAuth.sendPasswordResetEmail(email.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(LoginActivity.this, "Reset Email Sent", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                            }
-                        }).setNegativeButton("Cancel",null)
-                        .setView(view)
-                        .create().show();
+            public void onClick(View view) {
+                resetpass();
             }
         });
+
+//        forgetpasswordbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // start alert
+//                View view = inflater.inflate(R.layout.reset_pop, null);
+//
+//                reset_alert.setTitle("Reset Forget Password")
+//                        .setMessage("Enter Your Email To Reset")
+//                        .setPositiveButton("Reset", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                // Validate the email address
+//                                EditText email = view.findViewById(R.id.resetemailpop);
+//                                if (email.getText().toString().isEmpty()){
+//                                    email.setError("Required Field");
+//                                    return;
+//                                }
+//                                //send the reset Link
+//                                firebaseAuth.sendPasswordResetEmail(email.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void unused) {
+//                                        Toast.makeText(LoginActivity.this, "Reset Email Sent", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }).addOnFailureListener(new OnFailureListener() {
+//                                    @Override
+//                                    public void onFailure(@NonNull Exception e) {
+//                                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                    }
+//                                });
+//
+//                            }
+//                        }).setNegativeButton("Cancel",null)
+//                        .setView(view)
+//                        .create().show();
+//            }
+//        });
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +123,54 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        registerbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), Register.class));
+            }
+        });
+
     }
+
+    private void resetpass() {
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(this);
+        LayoutInflater inflater =LayoutInflater.from(this);
+
+        View view = inflater.inflate(R.layout.reset_pop, null);
+        myDialog.setView(view);
+
+        final AlertDialog dialog = myDialog.create();
+
+        final EditText resetemailpop = view.findViewById(R.id.resetemailpop);
+        final Button cancel = view.findViewById(R.id.btnCancel);
+        final Button reset = view.findViewById(R.id.btnReset);
+
+        cancel.setOnClickListener(v -> dialog.dismiss());
+
+        reset.setOnClickListener(view1 -> {
+            EditText email = view.findViewById(R.id.resetemailpop);
+            if (email.getText().toString().isEmpty()){
+                email.setError("Required Field");
+                return;
+            }
+
+            firebaseAuth.sendPasswordResetEmail(email.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast.makeText(LoginActivity.this, "Reset Email Sent", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
     private void checkUserAccessLevel(String uid) {
         DocumentReference df = fStore.collection("Users").document(uid);
         //Extract Data from document
