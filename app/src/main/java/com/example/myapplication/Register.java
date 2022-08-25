@@ -24,12 +24,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Register extends AppCompatActivity {
+
     EditText registerfullname,registeremail,registerpassword,registerconfpass,TimeIn, Timeout;
     Button registeruserbtn,gotoLogin;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     CheckBox isUser,isAdmin;
     boolean valid = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
