@@ -27,7 +27,6 @@ public class SplashScreen extends AppCompatActivity {
         ImageView logo = findViewById(R.id.splashLogo);
         TextView txtHue = findViewById(R.id.txtHue);
         TextView txtBarcode = findViewById(R.id.txtBarcode);
-
         logo.setAnimation(animation);
         txtHue.setAnimation(animation);
         txtBarcode.setAnimation(animation);
