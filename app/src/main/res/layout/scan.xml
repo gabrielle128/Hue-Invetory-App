@@ -1,31 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    tools:context=".FindLocation">
 
-    <com.example.myapplication.CodeScannerView
-        android:id="@+id/scanner_view"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        app:autoFocusButtonColor="#FFFFFF"
-        app:flashButtonVisible="true"
-        app:maskColor="#88020101" />
 
-    <TextView
-        android:id="@+id/tv_textView"
+    <ImageButton
+        android:id="@+id/camera.png"
+        android:layout_width="90dp"
+        android:layout_height="95dp"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/camera"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.327"></ImageButton>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/camera.png"
+        android:layout_alignEnd="@+id/camera.png"
+        android:layout_alignBottom="@+id/camera.png"
+        android:layout_alignParentStart="true"
+        android:text="CONFIRM"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.304" />
+
+    <EditText
+        android:id="@+id/input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/scanner_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Scan something"
-        android:textColor="@color/black" />
+        android:ems="10"
+        android:hint="Enter code here"
+        android:textColor="@color/khaki"
+        android:textColorHint="@color/khaki"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.077" />
+
+    <Button
+        android:id="@+id/show"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:fontFamily="@font/glacialindiferrence_bold"
+        android:scaleType="centerInside"
+        android:text="Search Location"
+        android:textColor="@color/brown"
+        android:textSize="9dp"
+        app:iconTint="@color/brown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.462"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.154"
+        app:strokeColor="@color/khaki"
+        app:strokeWidth="3dp" />
+
+    <Button
+        android:id="@+id/barcodebutton"
+        android:layout_width="103dp"
+        android:layout_height="38dp"
+        android:text="SEARCH"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.076" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

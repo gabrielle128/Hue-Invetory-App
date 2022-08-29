@@ -55,6 +55,42 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+//        forgetpasswordbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // start alert
+//                View view = inflater.inflate(R.layout.reset_pop, null);
+//
+//                reset_alert.setTitle("Reset Forget Password")
+//                        .setMessage("Enter Your Email To Reset")
+//                        .setPositiveButton("Reset", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                // Validate the email address
+//                                EditText email = view.findViewById(R.id.resetemailpop);
+//                                if (email.getText().toString().isEmpty()){
+//                                    email.setError("Required Field");
+//                                    return;
+//                                }
+//                                //send the reset Link
+//                                firebaseAuth.sendPasswordResetEmail(email.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void unused) {
+//                                        Toast.makeText(LoginActivity.this, "Reset Email Sent", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }).addOnFailureListener(new OnFailureListener() {
+//                                    @Override
+//                                    public void onFailure(@NonNull Exception e) {
+//                                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                    }
+//                                });
+//
+//                            }
+//                        }).setNegativeButton("Cancel",null)
+//                        .setView(view)
+//                        .create().show();
+//            }
+//        });
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,8 +133,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void resetpass() {
-
-
         AlertDialog.Builder myDialog = new AlertDialog.Builder(this);
         LayoutInflater inflater =LayoutInflater.from(this);
 

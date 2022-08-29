@@ -21,10 +21,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button Outbound;
+public class MainActivity extends AppCompatActivity {
     ImageButton menupopbtn;
-    Button Inventory;
+    Button Inventory, inbound, findlocation;
+
 
 
     @Override
@@ -32,9 +32,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Outbound = findViewById(R.id.btnInbound);
-        Outbound.setOnClickListener(this);
-
+        inbound = findViewById(R.id.btnInbound);
+        inbound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentinbound = new Intent(MainActivity.this, Inbound.class);
+                startActivity(intentinbound);
+            }
+        });
+        findlocation = findViewById(R.id.btnFind);
+        findlocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),FindLocation.class));
+            }
+        });
         Inventory = findViewById(R.id.btnInventory);
         Inventory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,10 +66,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        switch (menuItem.getItemId()){
+                        switch (menuItem.getItemId()) {
 
                             case R.id.resetUserPassword:
-                                startActivity(new Intent(getApplicationContext(),Resetpassword.class));
+                                startActivity(new Intent(getApplicationContext(), Resetpassword.class));
                                 return true;
 
                             case R.id.logoutbtn:
@@ -73,55 +85,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        }
-
-
-    @Override
-    public void onClick(View v) {
-        scancode();
-
-
-    }
-    private void scancode(){
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setCaptureActivity(CaptureAct.class);
-        integrator.setOrientationLocked(false);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        integrator.setPrompt("Scanning Code");
-        integrator.initiateScan();
-
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result !=null){
-            if(result.getContents() !=null){
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(result.getContents());
-                builder.setTitle("Scanning Result");
-                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        scancode();
-
-                    }
-                }).setNegativeButton("finish", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
-            }
-            else {
-                Toast.makeText(this, "No Results", Toast.LENGTH_LONG).show();
-            }
-
-        }else {
-            super.onActivityResult(requestCode, resultCode,data);
-        }
     }
 }

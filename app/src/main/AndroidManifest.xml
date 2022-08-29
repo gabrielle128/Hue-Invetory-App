@@ -19,10 +19,16 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".FindLocation"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".page1"
+            android:name=".Inbound"
+            android:exported="false" />
+        <activity
+            android:name=".inventory1"
             android:exported="false" />
         <activity
             android:name=".Resetpassword"
@@ -42,11 +48,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".CaptureAct"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true" />

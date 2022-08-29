@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class Register extends AppCompatActivity {
 
-    EditText registerfullname,registeremail,registerpassword,registerconfpass,TimeIn, Timeout;
+    EditText registerfullname,registeremail,registerpassword,registerconfpass;
     Button registeruserbtn,gotoLogin;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;

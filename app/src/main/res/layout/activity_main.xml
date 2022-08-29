@@ -2,25 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:orientation="horizontal"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:src="@drawable/hue_logo"/>
+            android:src="@drawable/hue_logo" />
 
         <TextView
             android:layout_width="0dp"
@@ -38,8 +39,8 @@
             android:id="@+id/menupopbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu"
-            android:background="?selectableItemBackgroundBorderless"/>
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_menu" />
 
 
     </LinearLayout>
@@ -47,15 +48,16 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:src="@drawable/line"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginRight="20dp"
+        android:src="@drawable/line" />
 
     <Button
         android:id="@+id/btnInbound"
         style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="300dp"
         android:layout_height="80dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/glacialindiferrence_bold"
         android:text="I N B O U N D"
         android:textColor="@color/brown"
@@ -63,8 +65,7 @@
         app:icon="@drawable/ic_inbound"
         app:iconTint="@color/brown"
         app:strokeColor="@color/khaki"
-        app:strokeWidth="3dp"
-        android:layout_marginTop="50dp"/>
+        app:strokeWidth="3dp" />
 
     <Button
         android:id="@+id/btnOutbound"
@@ -78,7 +79,7 @@
         app:icon="@drawable/ic_outbound"
         app:iconTint="@color/brown"
         app:strokeColor="@color/khaki"
-        app:strokeWidth="3dp"/>
+        app:strokeWidth="3dp" />
 
     <Button
         android:id="@+id/btnInventory"
@@ -92,7 +93,7 @@
         app:icon="@drawable/ic_inventory"
         app:iconTint="@color/brown"
         app:strokeColor="@color/khaki"
-        app:strokeWidth="3dp"/>
+        app:strokeWidth="3dp" />
 
     <Button
         android:id="@+id/btnFind"
@@ -106,7 +107,7 @@
         app:icon="@drawable/ic_search"
         app:iconTint="@color/brown"
         app:strokeColor="@color/khaki"
-        app:strokeWidth="3dp"/>
+        app:strokeWidth="3dp" />
 
     <Button
         android:id="@+id/button9"
@@ -120,7 +121,7 @@
         app:icon="@drawable/ic_about"
         app:iconTint="@color/brown"
         app:strokeColor="@color/khaki"
-        app:strokeWidth="3dp"/>
+        app:strokeWidth="3dp" />
 
     <TextView
         android:id="@+id/textView"
