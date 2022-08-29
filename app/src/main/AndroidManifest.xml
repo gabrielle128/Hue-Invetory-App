@@ -19,6 +19,9 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".SelectedShoe"
+            android:exported="false" />
+        <activity
             android:name=".FindLocation"
             android:exported="false" />
         <activity
@@ -28,7 +31,7 @@
             android:name=".Inbound"
             android:exported="false" />
         <activity
-            android:name=".inventory1"
+            android:name=".Inventory"
             android:exported="false" />
         <activity
             android:name=".Resetpassword"
@@ -48,13 +51,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".CaptureAct"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true" />

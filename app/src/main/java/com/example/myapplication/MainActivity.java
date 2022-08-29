@@ -1,27 +1,19 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity {
+
     ImageButton menupopbtn;
     Button Inventory, inbound, findlocation;
 
@@ -51,38 +43,34 @@ public class MainActivity extends AppCompatActivity {
         Inventory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentinventory = new Intent(MainActivity.this, inventory1.class);
-                startActivity(intentinventory);
+                startActivity(new Intent(getApplicationContext(), Inventory.class));
             }
         });
 
         menupopbtn = findViewById(R.id.menupopbtn);
-        menupopbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PopupMenu popupMenu = new PopupMenu(getApplicationContext(), menupopbtn);
-                popupMenu.getMenuInflater().inflate(R.menu.option_menu, popupMenu.getMenu());
+        menupopbtn.setOnClickListener(view -> {
+            PopupMenu popupMenu = new PopupMenu(getApplicationContext(), menupopbtn);
+            popupMenu.getMenuInflater().inflate(R.menu.option_menu, popupMenu.getMenu());
 
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    switch (menuItem.getItemId()) {
 
-                            case R.id.resetUserPassword:
-                                startActivity(new Intent(getApplicationContext(), Resetpassword.class));
-                                return true;
+                        case R.id.resetUserPassword:
+                            startActivity(new Intent(getApplicationContext(), Resetpassword.class));
+                            return true;
 
-                            case R.id.logoutbtn:
-                                FirebaseAuth.getInstance().signOut();
-                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                                finish();
-                                return true;
-                        }
-                        return false;
+                        case R.id.logoutbtn:
+                            FirebaseAuth.getInstance().signOut();
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            finish();
+                            return true;
                     }
-                });
-                popupMenu.show();
-            }
+                    return false;
+                }
+            });
+            popupMenu.show();
         });
 
     }

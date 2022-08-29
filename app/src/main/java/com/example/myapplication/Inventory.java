@@ -6,25 +6,63 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.SearchView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class inventory1 extends AppCompatActivity implements ShoeAdapter.ShoeClickListener{
+public class Inventory extends AppCompatActivity implements ShoeAdapter.ShoeClickListener{
 
     SearchView searchView;
     RecyclerView recyclerView;
     ShoeAdapter shoeAdapter;
     List<ShoeModel> shoeModelList = new ArrayList<>();
 
+    ImageView backBtn, menupopbtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inventory1);
+        setContentView(R.layout.activity_inventory);
 
         searchView = findViewById(R.id.searchView);
         recyclerView = findViewById(R.id.recyclerView);
+
+        backBtn = findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
+
+        menupopbtn = findViewById(R.id.menupopbtn);
+        menupopbtn.setOnClickListener(view -> {
+            PopupMenu popupMenu = new PopupMenu(getApplicationContext(), menupopbtn);
+            popupMenu.getMenuInflater().inflate(R.menu.option_menu, popupMenu.getMenu());
+
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    switch (menuItem.getItemId()) {
+
+                        case R.id.resetUserPassword:
+                            startActivity(new Intent(getApplicationContext(), Resetpassword.class));
+                            return true;
+
+                        case R.id.logoutbtn:
+                            FirebaseAuth.getInstance().signOut();
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            finish();
+                            return true;
+                    }
+                    return false;
+                }
+            });
+            popupMenu.show();
+        });
 
         displaySearch();
         setData();
@@ -55,7 +93,7 @@ public class inventory1 extends AppCompatActivity implements ShoeAdapter.ShoeCli
     }
 
     // data for shoe names
-    public void setData(){
+    public void setData() {
 
         shoeModelList.add(new ShoeModel("Akalia White", null, null, null));
         shoeModelList.add(new ShoeModel("Ada Biscotti", null, null, null));
@@ -806,6 +844,7 @@ public class inventory1 extends AppCompatActivity implements ShoeAdapter.ShoeCli
 
     @Override
     public void selectedShoe(ShoeModel shoeModel) {
-        startActivity(new Intent(this, inventory_details.class).putExtra("data", shoeModel));
+//        Toast.makeText(this, "Selected shoe " + shoeModel.getName(), Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, SelectedShoe.class).putExtra("data", shoeModel));
     }
 }
