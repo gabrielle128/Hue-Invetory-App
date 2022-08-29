@@ -16,6 +16,7 @@
         <entry key="..\:/ANDROID STUDIO/testrun/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1455" />
         <entry key="..\:/ANDROID STUDIO/testrun/app/src/main/res/layout/activity_admin.xml" value="0.2128623188405797" />
         <entry key="..\:/ANDROID STUDIO/testrun/app/src/main/res/layout/activity_find_location.xml" value="0.20729166666666668" />
+        <entry key="..\:/ANDROID STUDIO/testrun/app/src/main/res/layout/activity_find_location2.xml" value="0.16875" />
         <entry key="..\:/ANDROID STUDIO/testrun/app/src/main/res/layout/activity_home_page.xml" value="0.19322916666666667" />
         <entry key="..\:/ANDROID STUDIO/testrun/app/src/main/res/layout/activity_inbound.xml" value="0.2" />
         <entry key="..\:/ANDROID STUDIO/testrun/app/src/main/res/layout/activity_inventory.xml" value="0.2128623188405797" />
@@ -40,11 +41,6 @@
         <entry key="..\:/Users/Chuck Quila/AndroidStudioProjects/MyApplication3/app/src/main/res/layout/activity_reset_password.xml" value="0.2128623188405797" />
         <entry key="..\:/Users/Chuck Quila/AndroidStudioProjects/MyApplication3/app/src/main/res/layout/reset_pop.xml" value="0.2128623188405797" />
         <entry key="..\:/Users/Chuck Quila/AndroidStudioProjects/MyApplication3/app/src/main/res/menu/option_menu.xml" value="0.25" />
-        <entry key="..\:/Users/Gabrielle/AndroidStudioProjects/ojt-app/app/src/main/res/layout/activity_inventory.xml" value="0.325" />
-        <entry key="..\:/Users/Gabrielle/AndroidStudioProjects/ojt-app/app/src/main/res/layout/activity_inventory_details.xml" value="0.325" />
-        <entry key="..\:/Users/Gabrielle/AndroidStudioProjects/ojt-app/app/src/main/res/layout/activity_main.xml" value="0.325" />
-        <entry key="..\:/Users/Gabrielle/AndroidStudioProjects/ojt-app/app/src/main/res/layout/activity_selected_shoe.xml" value="0.325" />
-        <entry key="..\:/Users/Gabrielle/AndroidStudioProjects/ojt-app/app/src/main/res/layout/activity_trial2.xml" value="0.325" />
       </map>
     </option>
   </component>

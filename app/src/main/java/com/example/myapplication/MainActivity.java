@@ -28,8 +28,7 @@ public class MainActivity extends AppCompatActivity {
         inbound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentinbound = new Intent(MainActivity.this, Inbound.class);
-                startActivity(intentinbound);
+                startActivity(new Intent(getApplicationContext(),Inbound.class));
             }
         });
         findlocation = findViewById(R.id.btnFind);
