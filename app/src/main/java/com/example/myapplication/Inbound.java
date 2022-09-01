@@ -29,6 +29,9 @@ public class Inbound extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_CODE = 100;
     private CodeScanner mCodeScanner;
 
+    private TextView barcodeScan, productInfo, scanCount;
+    private Shoe shoe;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,7 @@ public class Inbound extends AppCompatActivity {
         mCodeScanner.setDecodeCallback(result -> runOnUiThread(() -> {
             //Toast.makeText(Inbound.this, result.getText(), Toast.LENGTH_SHORT).show();
             scanResult(result.getText());
+            UpdateInfo();
         }));
 
          scannerView.setOnClickListener(view -> mCodeScanner.startPreview());
@@ -55,7 +59,9 @@ public class Inbound extends AppCompatActivity {
         btnTestButton.setOnClickListener(view -> scanResult("100013202"));
 
         // Confirm button to update the database
-        confirmBtn.setOnClickListener(view -> scanResult("100013203"));
+        confirmBtn.setOnClickListener(view -> {
+            UpdateDatabase();
+        });
 
         // Manually add item to database, if scanner is not working
         manualAddBtn.setOnClickListener(view -> {
@@ -110,17 +116,14 @@ public class Inbound extends AppCompatActivity {
     Map<String, Shoe> inventory = new HashMap<>();
     @SuppressLint("SetTextI18n")
     public void scanResult(String result){
-        Log.d("Result", result);
-        TextView barcodeScan, productInfo, scanCount;
-        barcodeScan = findViewById(R.id.barcodeScan);
         productInfo = findViewById(R.id.productInfo);
         scanCount = findViewById(R.id.scanCount);
+        barcodeScan = findViewById(R.id.barcodeScan);
 
         // Display scanned code
         barcodeScan.setText((CharSequence) result);
 
         // Create or edit shoe object
-        Shoe shoe;
         if(inventory.containsKey(result)) {
             // Increment on existing inventory object
             shoe = inventory.get(result);
@@ -138,10 +141,7 @@ public class Inbound extends AppCompatActivity {
             }
         }
 
-        // Update count and product information
-        Objects.requireNonNull(shoe).count += 1;
-        productInfo.setText(MessageFormat.format("Name: {0} Size: {1} Color: {2}", shoe.name, shoe.size, shoe.color));
-        scanCount.setText(shoe.count.toString());
+        UpdateInfo();
     }
 
     private Object CreateShoeObj(String result) {
@@ -157,6 +157,21 @@ public class Inbound extends AppCompatActivity {
 
     private boolean CheckItemDB(String result) {
         // Replace code with check if item exists in the database
-        return result.length() == 9;
+        return result.length() == 12;
+    }
+
+    private void UpdateInfo() {
+        productInfo.setText(MessageFormat.format("Name: {0} Size: {1} Color: {2}", shoe.name, shoe.size, shoe.color));
+        if(shoe.name != null) {
+            Objects.requireNonNull(shoe).count += 1;
+        }
+        scanCount.setText(shoe.count.toString());
+    }
+
+    private void UpdateDatabase() {
+        for(String key : inventory.keySet()) {
+            inventory.get(key).writeData();
+        }
+        Toast.makeText(this, "Database Updated", Toast.LENGTH_LONG).show();
     }
 }
