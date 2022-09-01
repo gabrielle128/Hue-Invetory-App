@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/inboundLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Inbound">
@@ -120,11 +119,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scanner_view"
-        app:layout_constraintVertical_bias="0.602" />
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="448dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

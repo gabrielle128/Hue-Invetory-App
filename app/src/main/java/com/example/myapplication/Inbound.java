@@ -49,7 +49,7 @@ public class Inbound extends AppCompatActivity {
             UpdateInfo();
         }));
 
-         scannerView.setOnClickListener(view -> mCodeScanner.startPreview());
+        scannerView.setOnClickListener(view -> mCodeScanner.startPreview());
 
         Button btnTestButton = findViewById(R.id.testButton);
         Button confirmBtn = findViewById(R.id.confirmBtn);
