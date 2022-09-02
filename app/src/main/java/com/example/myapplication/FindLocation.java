@@ -7,13 +7,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -23,6 +27,7 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
 
     TextView result, resulttextview;
     ImageButton cameraBtn;
+    ImageView backBtn, menupopbtn;
     Button search, scan_btn, barcodebutton;
 
     @Override
@@ -32,7 +37,7 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
 
         resulttextview = findViewById(R.id.input);
 
-        scan_btn=findViewById(R.id.barcodebutton);
+        scan_btn = findViewById(R.id.barcodebutton);
 
         cameraBtn = findViewById(R.id.camera_png);
         cameraBtn.setOnClickListener(this);
@@ -43,7 +48,8 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
         scan_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),FindLocation2.class));
+                startActivity(new Intent(getApplicationContext(), FindLocation2.class));
+
             }
         });
 
@@ -54,6 +60,35 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
             }
         });
 
+        backBtn = findViewById(R.id.backbtn1);
+        backBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
+
+        menupopbtn = findViewById(R.id.menupopbtn);
+        menupopbtn.setOnClickListener(view -> {
+            PopupMenu popupMenu = new PopupMenu(getApplicationContext(), menupopbtn);
+            popupMenu.getMenuInflater().inflate(R.menu.option_menu, popupMenu.getMenu());
+
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    switch (menuItem.getItemId()) {
+
+                        case R.id.resetUserPassword:
+                            startActivity(new Intent(getApplicationContext(), Resetpassword.class));
+                            return true;
+
+                        case R.id.logoutbtn:
+                            FirebaseAuth.getInstance().signOut();
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            finish();
+                            return true;
+                    }
+                    return false;
+                }
+            });
+            popupMenu.show();
+        });
+
     }
 
     @Override
@@ -61,30 +96,30 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
         scanCode();
     }
 
-    private void scanCode(){
+    private void scanCode() {
 
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setCaptureActivity(CaptureAct.class);
         integrator.setOrientationLocked(false);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        integrator.setPrompt("Scanning Code");
+        integrator.setPrompt("QR Scanning Code");
         integrator.initiateScan();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null){
-            if(result.getContents() != null){
+        if (result != null) {
+            if (result.getContents() != null) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(result.getContents());
                 builder.setTitle("Scanning Result");
-                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener(){
+                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         scanCode();
                     }
-                }).setNegativeButton("finish", new DialogInterface.OnClickListener(){
+                }).setNegativeButton("finish", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
@@ -93,11 +128,10 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
-            }
-            else {
+            } else {
                 Toast.makeText(this, "No Results Found", Toast.LENGTH_LONG).show();
             }
-        }else {
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -118,7 +152,7 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
 
         String barcode = input.getText().toString().trim();
 
-        if (barcode.equals("0912345")){
+        if (barcode.equals("0912345")) {
             information.setText("INFORMATION");
             name.setText("Ada Black");
             size.setText("6");
@@ -126,7 +160,7 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
             done.setText("done");
         }
 
-        if (barcode.equals("0912346")){
+        if (barcode.equals("0912346")) {
             information.setText("INFORMATION");
             name.setText("Ada Bleu");
             size.setText("6");
@@ -134,7 +168,7 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
             done.setText("done");
         }
 
-        if (barcode.equals("0912347")){
+        if (barcode.equals("0912347")) {
             information.setText("INFORMATION");
             name.setText("Ada Fleur");
             size.setText("7");
@@ -142,7 +176,7 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
             done.setText("done");
         }
 
-        if (barcode.equals("0912348")){
+        if (barcode.equals("0912348")) {
             information.setText("INFORMATION");
             name.setText("Ada Blush");
             size.setText("8");
@@ -158,5 +192,8 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
         });
         dialog.show();
     }
-
 }
+
+
+
+

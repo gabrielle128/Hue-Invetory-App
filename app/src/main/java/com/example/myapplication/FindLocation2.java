@@ -29,13 +29,8 @@ public class FindLocation2 extends AppCompatActivity implements ZXingScannerView
     @Override
     public void handleResult(Result result) {
         FindLocation.input.setText(result.getText());
+        onBackPressed();
 
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        scannerView.stopCamera();
     }
 
     @Override

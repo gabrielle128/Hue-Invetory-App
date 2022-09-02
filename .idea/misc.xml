@@ -3,6 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ANDROID STUDIO/sept test/app/src/main/res/layout/activity_find_location2.xml" value="0.27239583333333334" />
+        <entry key="..\:/ANDROID STUDIO/sept test/app/src/main/res/layout/activity_inbound.xml" value="0.264" />
+        <entry key="..\:/ANDROID STUDIO/sept test/app/src/main/res/layout/activity_inventory.xml" value="0.18802083333333333" />
+        <entry key="..\:/ANDROID STUDIO/sept test/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/ANDROID STUDIO/sept test/app/src/main/res/layout/activity_trial2.xml" value="0.36666666666666664" />
+        <entry key="..\:/ANDROID STUDIO/sept test/app/src/main/res/layout/reset_pop.xml" value="0.18802083333333333" />
+        <entry key="..\:/ANDROID STUDIO/sept test/app/src/main/res/layout/row_shoename.xml" value="0.18802083333333333" />
+        <entry key="..\:/ANDROID STUDIO/sept test/app/src/main/res/layout/scan.xml" value="0.4" />
+        <entry key="..\:/ANDROID STUDIO/sept test/app/src/main/res/layout/showlocation.xml" value="0.18802083333333333" />
         <entry key="..\:/ANDROID STUDIO/testrun/app/src/main/res/drawable-v24/ic_code_scanner_auto_focus_off.xml" value="0.1" />
         <entry key="..\:/ANDROID STUDIO/testrun/app/src/main/res/drawable-v24/ic_code_scanner_auto_focus_on.xml" value="0.1" />
         <entry key="..\:/ANDROID STUDIO/testrun/app/src/main/res/drawable-v24/ic_code_scanner_flash2_on.xml" value="0.1895" />
