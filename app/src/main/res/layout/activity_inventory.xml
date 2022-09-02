@@ -67,6 +67,7 @@
         app:cardCornerRadius="10dp">
 
         <TextView
+            android:id="@+id/txtName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="S H O E   N A M E"
