@@ -53,12 +53,8 @@ public class Inbound extends AppCompatActivity {
 
         scannerView.setOnClickListener(view -> mCodeScanner.startPreview());
 
-        Button btnTestButton = findViewById(R.id.testButton);
         Button confirmBtn = findViewById(R.id.confirmBtn);
         Button manualAddBtn = findViewById(R.id.manualAddBtn);
-
-        // Button for testing
-        btnTestButton.setOnClickListener(view -> scanResult("100013202"));
 
         // Confirm button to update the database
         confirmBtn.setOnClickListener(view -> UpdateDatabase());
