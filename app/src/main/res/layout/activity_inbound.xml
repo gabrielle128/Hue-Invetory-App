@@ -93,7 +93,7 @@
     <EditText
         android:id="@+id/barcodeManualAdd"
         android:layout_width="277dp"
-        android:layout_height="48dp"
+        android:layout_height="41dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="358764521125"
@@ -106,8 +106,8 @@
 
     <Button
         android:id="@+id/manualAddBtn"
-        android:layout_width="54dp"
-        android:layout_height="55dp"
+        android:layout_width="45dp"
+        android:layout_height="46dp"
         android:text="+"
         app:layout_constraintBottom_toTopOf="@+id/confirmBtn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -119,9 +119,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.608" />
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="448dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

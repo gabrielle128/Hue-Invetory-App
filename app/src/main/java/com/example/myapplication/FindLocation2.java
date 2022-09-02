@@ -10,8 +10,6 @@ import android.os.Bundle;
 
 import com.google.zxing.Result;
 
-import java.util.Scanner;
-
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class FindLocation2 extends AppCompatActivity implements ZXingScannerView.ResultHandler{
