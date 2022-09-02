@@ -18,7 +18,6 @@ import java.text.MessageFormat;
 public class Shoe {
     DatabaseReference reference = FirebaseDatabase.getInstance("https://ojt-app-cfbb0-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Hue");
 
-    Object object;
     String product_code, product_color_code, product_size_code;
     String name, color, bound;
     Integer size;
@@ -49,7 +48,12 @@ public class Shoe {
                                     return;
                                 }
                                 count = Integer.parseInt(color_data.child("size_" + size).child("quantity").getValue().toString());
-                                // CALL UPDATE INFO INBOUND ACTIVITY
+
+                                if(OnDatabaseEventListener != null)
+                                {
+                                    OnDatabaseEventListener.OnCallUpdateInfo();
+                                }
+
                                 Log.d("FIREBASE", name + color + size + count);
                                 return;
                             }
@@ -64,6 +68,11 @@ public class Shoe {
 
             }
         });
+    }
+
+    private DatabaseListener OnDatabaseEventListener;
+    public void setDatabaseListener(DatabaseListener dbListener) {
+        OnDatabaseEventListener = dbListener;
     }
 
     private void noData(){

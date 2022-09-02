@@ -139,6 +139,12 @@ public class Inbound extends AppCompatActivity {
             }
         }
 
+        shoe.setDatabaseListener(new DatabaseListener() {
+            @Override
+            public void OnCallUpdateInfo() {
+                UpdateInfo();
+            }
+        });
         UpdateInfo();
     }
 
