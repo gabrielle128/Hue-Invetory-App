@@ -83,8 +83,6 @@ public class SelectedShoe extends AppCompatActivity {
             String strSplit[] = name.split(" ");
             String design = strSplit[0];
             String desName = strSplit[1];
-//            String desName1 = strSplit[2];
-//            String desName2 = desName + " " + desName1;
 
             DatabaseReference reference = FirebaseDatabase.getInstance("https://ojt-app-cfbb0-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Hue").child(design).child(desName);
 
