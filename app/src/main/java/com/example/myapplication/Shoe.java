@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.util.Log;
+
 import java.lang.Math;
 
 import androidx.annotation.NonNull;
@@ -16,26 +18,18 @@ import java.text.MessageFormat;
 public class Shoe {
     DatabaseReference reference = FirebaseDatabase.getInstance("https://ojt-app-cfbb0-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Hue");
 
+    Object object;
     String product_code, product_color_code, product_size_code;
-    String name;
-    String color;
+    String name, color, bound;
     Integer size;
     Integer count = 0;
 
     public Shoe(String code) {
-        //database.put("10001", "LeBlanc");
-        //database.put("02", "beige");
-        //database.put("03", "white");
-
         product_code = code.substring(0, 7);
         product_color_code = code.substring(7, 10);
         product_size_code = code.substring(10, 12);
-
         size = (int) Math.sqrt(Integer.parseInt(product_size_code));
 
-        //name = database.get(code.substring(0, 5));
-        //size = code.substring(5, 7);
-        //color = database.get(code.substring(7, 9));
         findData(code);
     }
 
@@ -55,7 +49,8 @@ public class Shoe {
                                     return;
                                 }
                                 count = Integer.parseInt(color_data.child("size_" + size).child("quantity").getValue().toString());
-                                count = Integer.parseInt(String.valueOf(count)) + 1;
+                                // CALL UPDATE INFO INBOUND ACTIVITY
+                                Log.d("FIREBASE", name + color + size + count);
                                 return;
                             }
                         }
@@ -71,7 +66,7 @@ public class Shoe {
         });
     }
 
-    public void noData(){
+    private void noData(){
         name = null;
         size = null;
         color = null;

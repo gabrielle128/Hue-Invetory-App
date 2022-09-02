@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.budiyev.android.codescanner.*;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
@@ -29,7 +31,8 @@ public class Inbound extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_CODE = 100;
     private CodeScanner mCodeScanner;
 
-    private TextView barcodeScan, productInfo, scanCount;
+    private TextView barcodeScan;
+    private TextView prdName, prdColor, prdSize, prdQty;
     private Shoe shoe;
 
     @Override
@@ -44,7 +47,6 @@ public class Inbound extends AppCompatActivity {
 
         mCodeScanner.setScanMode(ScanMode.SINGLE);
         mCodeScanner.setDecodeCallback(result -> runOnUiThread(() -> {
-            //Toast.makeText(Inbound.this, result.getText(), Toast.LENGTH_SHORT).show();
             scanResult(result.getText());
             UpdateInfo();
         }));
@@ -59,9 +61,7 @@ public class Inbound extends AppCompatActivity {
         btnTestButton.setOnClickListener(view -> scanResult("100013202"));
 
         // Confirm button to update the database
-        confirmBtn.setOnClickListener(view -> {
-            UpdateDatabase();
-        });
+        confirmBtn.setOnClickListener(view -> UpdateDatabase());
 
         // Manually add item to database, if scanner is not working
         manualAddBtn.setOnClickListener(view -> {
@@ -116,8 +116,6 @@ public class Inbound extends AppCompatActivity {
     Map<String, Shoe> inventory = new HashMap<>();
     @SuppressLint("SetTextI18n")
     public void scanResult(String result){
-        productInfo = findViewById(R.id.productInfo);
-        scanCount = findViewById(R.id.scanCount);
         barcodeScan = findViewById(R.id.barcodeScan);
 
         // Display scanned code
@@ -133,7 +131,7 @@ public class Inbound extends AppCompatActivity {
             if(CheckItemDB(result)) {
                 // Create new shoe object
                 inventory.put(result, (Shoe) CreateShoeObj(result));
-                shoe = inventory.get(result);
+                shoe = inventory.get(result); // Checks item in database
                 Log.d("Inventory", "New");
             } else {
                 Toast.makeText(this, "ITEM NOT FOUND IN DATABASE", Toast.LENGTH_LONG).show();
@@ -160,12 +158,19 @@ public class Inbound extends AppCompatActivity {
         return result.length() == 12;
     }
 
-    private void UpdateInfo() {
-        productInfo.setText(MessageFormat.format("Name: {0} Size: {1} Color: {2}", shoe.name, shoe.size, shoe.color));
+    public void UpdateInfo() {
+        prdQty = findViewById(R.id.prdQty);
+        prdName = findViewById(R.id.prdName);
+        prdColor = findViewById(R.id.prdColor);
+        prdSize = findViewById(R.id.prdSize);
+
+        prdName.setText(shoe.name);
+        prdColor.setText(shoe.color);
+        prdSize.setText(shoe.size.toString());
         if(shoe.name != null) {
             Objects.requireNonNull(shoe).count += 1;
         }
-        scanCount.setText(shoe.count.toString());
+        prdQty.setText(shoe.count.toString());
     }
 
     private void UpdateDatabase() {
