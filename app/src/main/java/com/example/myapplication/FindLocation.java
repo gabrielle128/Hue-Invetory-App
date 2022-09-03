@@ -28,7 +28,7 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
     TextView result, resulttextview;
     ImageButton cameraBtn;
     ImageView backBtn, menupopbtn;
-    Button search, scan_btn, barcodebutton;
+    Button search, scan_btn, barcodebutton,clear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,14 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
 
         search = findViewById(R.id.show);
         input = findViewById(R.id.input);
+        clear = findViewById(R.id.btnClear);
+
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                input.setText("");
+            }
+        });
 
         scan_btn.setOnClickListener(new View.OnClickListener() {
             @Override
