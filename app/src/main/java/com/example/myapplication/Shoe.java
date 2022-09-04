@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.util.Log;
 
 import java.lang.Math;
+import java.text.MessageFormat;
 
 import androidx.annotation.NonNull;
 
@@ -87,6 +88,9 @@ public class Shoe {
     }
 
     public void writeData() {
-
+        if(exists) {
+            reference.child(name).child(color).child("size_" + size.toString()).child("quantity").setValue(count);
+            Log.d("UPDATE", MessageFormat.format("{0} {1} size {2} updated", name, color, size));
+        }
     }
 }
