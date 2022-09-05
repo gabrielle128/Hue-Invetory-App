@@ -119,26 +119,38 @@
 
     <EditText
         android:id="@+id/barcodeManualAdd"
-        android:layout_width="277dp"
-        android:layout_height="41dp"
-        android:layout_marginBottom="52dp"
+        android:layout_width="241dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="56dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="358764521125"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.246"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/manualAddBtn"
-        android:layout_width="45dp"
-        android:layout_height="46dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
         android:text="+"
         app:layout_constraintBottom_toTopOf="@+id/confirmBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toEndOf="@+id/barcodeManualAdd" />
+
+    <Button
+        android:id="@+id/clearBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:text="C"
+        app:layout_constraintBottom_toTopOf="@+id/confirmBtn"
+        app:layout_constraintEnd_toStartOf="@+id/barcodeManualAdd"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/prdName"

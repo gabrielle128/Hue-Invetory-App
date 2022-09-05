@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.lang.Math;
 import java.text.MessageFormat;
@@ -19,7 +20,7 @@ public class Shoe {
     String product_code, product_color_code, product_size_code;
     String name, color, bounds;
     Integer size, count;
-    Boolean exists;
+    Boolean exists = false;
 
     // Event Listener
     private DatabaseListener OnDatabaseEventListener;

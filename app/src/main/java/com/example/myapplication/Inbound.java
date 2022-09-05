@@ -28,7 +28,7 @@ public class Inbound extends AppCompatActivity {
     private CodeScanner mCodeScanner;
 
     private TextView scannedBarcode, prdName, prdColor, prdSize, prdQty;
-    private Button confirmBtn, manualAddBtn;
+    private Button confirmBtn, manualAddBtn, clearBtn;
     private Shoe shoe;
 
     // Dictionary for scanned shoes
@@ -49,6 +49,10 @@ public class Inbound extends AppCompatActivity {
         // Buttons
         Button confirmBtn = findViewById(R.id.confirmBtn);
         Button manualAddBtn = findViewById(R.id.manualAddBtn);
+        Button clearBtn = findViewById(R.id.clearBtn);
+
+        // Text Fields
+        EditText barcodeField = (EditText) findViewById(R.id.barcodeManualAdd);
 
         // Ask for permissions
         checkPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_CODE);
@@ -68,8 +72,16 @@ public class Inbound extends AppCompatActivity {
 
         // Manually add item to database, if scanner is not working
         manualAddBtn.setOnClickListener(view -> {
-            EditText barcodeText = (EditText) findViewById(R.id.barcodeManualAdd);
-            scanResult(barcodeText.getText().toString());
+            String barcodeFieldText = barcodeField.getText().toString();
+
+            if(!barcodeFieldText.isEmpty() && barcodeFieldText.length() >= 12){
+                scanResult(barcodeField.getText().toString());
+            }
+        });
+
+        // Clear button for text field
+        clearBtn.setOnClickListener(view -> {
+            barcodeField.setText(null);
         });
     }
 
@@ -85,6 +97,7 @@ public class Inbound extends AppCompatActivity {
         } else {
             // Newly scanned shoe
             String bounds = "inbound";
+
             if(!checkValidity(result)) { return; }
             inventory.put(result, (Shoe) createShoeObj(result, bounds));
             shoe = inventory.get(result);
@@ -94,8 +107,10 @@ public class Inbound extends AppCompatActivity {
             return;
         }
 
-        shoe.increment();
-        shoe.setDatabaseListener(() -> updateInfo());
+        if(shoe.exists) {
+            shoe.increment();
+            shoe.setDatabaseListener(() -> updateInfo());
+        }
     }
 
     private Object createShoeObj(String result, String bounds) {
@@ -112,7 +127,7 @@ public class Inbound extends AppCompatActivity {
     private void updateInfo() {
         if(shoe.exists) {
             prdName.setText(shoe.name);
-            prdColor.setText(shoe.name);
+            prdColor.setText(shoe.color);
             prdSize.setText(shoe.size.toString());
             prdQty.setText(shoe.count.toString());
         }
@@ -123,7 +138,6 @@ public class Inbound extends AppCompatActivity {
             inventory.get(key).writeData();
         }
         Toast.makeText(this, "Database Updated", Toast.LENGTH_SHORT).show();
-        Log.d("DATABASE", "Database Updated");
     }
 
     private boolean checkValidity(String code) {
