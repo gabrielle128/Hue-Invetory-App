@@ -1,9 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+
+<LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".AboutUs">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/aboutus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/glacialindiferrence_bold"
+        android:textSize="25sp"
+        android:textColor="@color/brown"
+        android:layout_marginBottom="60sp"
+        android:layout_marginTop="55sp"
+        android:gravity="center"
+        android:text="THE DEVELOPERS BEHIND THE APPLICATION"/>
+
+    <ImageView
+        android:id="@+id/hueLogo"
+        android:layout_width="225dp"
+        android:layout_height="225dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="25sp"
+        android:src="@drawable/hue_manila"/>
+
+    <TextView
+        android:id="@+id/description"
+        android:padding="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/glacialindiferrence_bold"
+        android:textSize="19sp"
+        android:textColor="@color/brown"
+        android:layout_marginTop="50sp"
+        android:gravity="center"
+        android:text="The Hue application was produced by 8 Bachelor of Science in Computer Engineering students in Polytechnic University of the Philippines as a partial requirement for completing the subject code: CMPE 30083, or the On The Job Training (OJT) 1 which is supervised by Oquindo, Florinda H. The mentioned students are the following:"/>
+
+
+    <TextView
+        android:id="@+id/Batralo"
+        android:padding="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/glacialindiferrence_bold"
+        android:textSize="25sp"
+        android:textColor="@color/brown"
+        android:layout_marginTop="60sp"
+        android:gravity="center"
+        android:text="•  B a t r a l o ,  G a b r i e l l e   •"/>
+
+    <TextView
+        android:id="@+id/Baylon"
+        android:padding="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/glacialindiferrence_bold"
+        android:textSize="25sp"
+        android:textColor="@color/brown"
+        android:layout_marginTop="20sp"
+        android:gravity="center"
+        android:text="•  B a y l o n ,  A d r i a n\nG e l y n  •"/>
+
+    <TextView
+        android:id="@+id/Cabobos"
+        android:padding="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/glacialindiferrence_bold"
+        android:textSize="25sp"
+        android:textColor="@color/brown"
+        android:layout_marginTop="20sp"
+        android:gravity="center"
+        android:text="•  C a b o b o s ,  K e n n e t h  •"/>
+
+    <TextView
+        android:id="@+id/Corpuz"
+        android:padding="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/glacialindiferrence_bold"
+        android:textSize="25sp"
+        android:textColor="@color/brown"
+        android:layout_marginTop="20sp"
+        android:gravity="center"
+        android:text="•  C o r p u z ,  J a m e s\nC h r i s t o p h e r  •"/>
+
+    <TextView
+        android:id="@+id/DelaCruz"
+        android:padding="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/glacialindiferrence_bold"
+        android:textSize="25sp"
+        android:textColor="@color/brown"
+        android:layout_marginTop="20sp"
+        android:gravity="center"
+        android:text="•  D e l a  C r u z ,  G e r l i e\nI r i e s  •"/>
+
+    <TextView
+        android:id="@+id/Espineda"
+        android:padding="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/glacialindiferrence_bold"
+        android:textSize="25sp"
+        android:textColor="@color/brown"
+        android:layout_marginTop="20sp"
+        android:gravity="center"
+        android:text="•  E s p i n e d a ,  F r a n c i n e\nL i a h n  •"/>
+
+    <TextView
+        android:id="@+id/Francia"
+        android:padding="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/glacialindiferrence_bold"
+        android:textSize="25sp"
+        android:textColor="@color/brown"
+        android:layout_marginTop="20sp"
+        android:gravity="center"
+        android:text="•  F r a n c i a ,  L o u i e\nD o m i n i c  •"/>
+
+    <TextView
+        android:id="@+id/Pontilla"
+        android:padding="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/glacialindiferrence_bold"
+        android:textSize="25sp"
+        android:textColor="@color/brown"
+        android:layout_marginTop="20sp"
+        android:gravity="center"
+        android:layout_marginBottom="75sp"
+        android:text="•  P o n t i l l a ,  F r a n c i s  •"/>
+</LinearLayout>
+
+</ScrollView>
