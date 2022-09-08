@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Validator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -58,36 +59,17 @@ public class FindLocation extends AppCompatActivity {
         search = findViewById(R.id.show);
         input = findViewById(R.id.input);
 
-        rootDatabaseref = FirebaseDatabase.getInstance().getReference().child("location");
-
-
         scan_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), FindLocation2.class));
-
             }
         });
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rootDatabaseref.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists())
-                        {
-                            String data = dataSnapshot.getValue().toString();
-                            prdLocation1.setText(data);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
+                findLocation(input.getText().toString());
             }
         });
 
@@ -120,6 +102,32 @@ public class FindLocation extends AppCompatActivity {
             popupMenu.show();
         });
 
+    }
+
+    private void findLocation(String code) {
+        rootDatabaseref = FirebaseDatabase.getInstance("https://ojt-app-cfbb0-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Hue");
+        String design_code = code.substring(0, 7);
+
+        rootDatabaseref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot data : snapshot.getChildren()) {
+                    String product_code = data.child("design_code").getValue().toString();
+                    if(product_code.equals(design_code)) {
+                        String product_location = data.child("location").getValue().toString();
+                        prdLocation1.setText(product_location);
+                        Log.d("FIREBASE", product_location);
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
 

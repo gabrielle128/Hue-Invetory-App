@@ -176,16 +176,15 @@
         android:id="@+id/prdLocation1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
+        android:fontFamily="@font/glacialindiferrence_bold"
         android:text="LOCATION"
         android:textColor="@color/khaki"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.592"
-        android:fontFamily="@font/glacialindiferrence_bold"/>
+        app:layout_constraintVertical_bias="0.601" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

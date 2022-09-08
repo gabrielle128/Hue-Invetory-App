@@ -119,7 +119,7 @@ public class Register extends AppCompatActivity {
 
                             df.set(userInfo);
                             if (isAdmin.isChecked()){
-                                startActivity(new Intent(getApplicationContext(), Admin.class));
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 finish();
                             }
                             if (isUser.isChecked()){
