@@ -58,6 +58,14 @@ public class FindLocation extends AppCompatActivity {
 
         search = findViewById(R.id.show);
         input = findViewById(R.id.input);
+        clear = findViewById(R.id.btnClear);
+
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                input.setText("");
+            }
+        });
 
         scan_btn.setOnClickListener(new View.OnClickListener() {
             @Override
