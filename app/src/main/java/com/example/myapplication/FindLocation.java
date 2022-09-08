@@ -1,7 +1,7 @@
 package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.lifecycle.Validator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -121,7 +121,7 @@ public class FindLocation extends AppCompatActivity {
         });
 
     }
-    }
+}
 
 
 
