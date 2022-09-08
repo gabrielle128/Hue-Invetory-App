@@ -17,8 +17,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Shoe {
     DatabaseReference reference = FirebaseDatabase.getInstance("https://ojt-app-cfbb0-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Hue");
-    String product_code, product_color_code, product_size_code;
-    String name, color, bounds;
+    String product_code, product_color_code, product_size_code, product_location;
+    String name, color, bounds, location;
     Integer size, count;
     Boolean exists = false;
 

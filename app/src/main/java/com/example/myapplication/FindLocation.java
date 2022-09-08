@@ -1,10 +1,9 @@
 package com.example.myapplication;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,31 +12,54 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
-public class FindLocation extends AppCompatActivity  implements View.OnClickListener {
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class FindLocation extends AppCompatActivity {
     public static TextView input;
-    TextView result, resulttextview;
+    private DatabaseReference rootDatabaseref;
+
+    private TextView scannedBarcode2, prdName2, prdColor2, prdSize2, prdLocation1;
+    private Shoe shoe;
+
+    Map<String, Shoe> inventory = new HashMap<>();
+    String result;
+    TextView resulttextview;
+
     ImageButton cameraBtn;
     ImageView backBtn, menupopbtn;
-    Button search, scan_btn, barcodebutton,clear;
+    Button search, scan_btn, barcodebutton, clear;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scan);
 
+        scannedBarcode2 = findViewById(R.id.input);
+        prdLocation1 = findViewById(R.id.prdLocation1);
+        EditText barcodeField = (EditText) findViewById(R.id.input);
+
+
         resulttextview = findViewById(R.id.input);
 
         scan_btn = findViewById(R.id.barcodebutton);
 
-        cameraBtn = findViewById(R.id.camera_png);
-        cameraBtn.setOnClickListener(this);
-
         search = findViewById(R.id.show);
         input = findViewById(R.id.input);
+
+        rootDatabaseref = FirebaseDatabase.getInstance().getReference().child("location");
+
 
         scan_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +72,22 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showInfo();
+                rootDatabaseref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists())
+                        {
+                            String data = dataSnapshot.getValue().toString();
+                            prdLocation1.setText(data);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
 
@@ -84,108 +121,18 @@ public class FindLocation extends AppCompatActivity  implements View.OnClickList
         });
 
     }
-
-    @Override
-    public void onClick(View v) {
-        scanCode();
-    }
-
-    private void scanCode() {
-
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setCaptureActivity(CaptureAct.class);
-        integrator.setOrientationLocked(false);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        integrator.setPrompt("QR Scanning Code");
-        integrator.initiateScan();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            if (result.getContents() != null) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(result.getContents());
-                builder.setTitle("Scanning Result");
-                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        scanCode();
-                    }
-                }).setNegativeButton("finish", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
-            } else {
-                Toast.makeText(this, "No Results Found", Toast.LENGTH_LONG).show();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
     }
 
 
-    private void showInfo() {
-        AlertDialog.Builder myDialog = new AlertDialog.Builder(this);
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.showlocation, null);
-        myDialog.setView(view);
-        final AlertDialog dialog = myDialog.create();
 
-        final TextView information = view.findViewById(R.id.information);
-        final TextView name = view.findViewById(R.id.name);
-        final TextView size = view.findViewById(R.id.size);
-        final TextView location = view.findViewById(R.id.location);
-        final TextView done = view.findViewById(R.id.done);
-        String barcode = input.getText().toString().trim();
 
-        if (barcode.equals("09") || barcode.equals("091") ||barcode.equals("022")){
-            information.setText("INFORMATION");
-            name.setText("Ada Black");
-            size.setText("6");
-            location.setText("rack 6");
-            done.setText("done");
-        }
 
-        if (barcode.equals("0912346")) {
-            information.setText("INFORMATION");
-            name.setText("Ada Bleu");
-            size.setText("6");
-            location.setText("rack 6");
-            done.setText("done");
-        }
 
-        if (barcode.equals("0912347")) {
-            information.setText("INFORMATION");
-            name.setText("Ada Fleur");
-            size.setText("7");
-            location.setText("rack 7");
-            done.setText("done");
-        }
 
-        if (barcode.equals("0912348")) {
-            information.setText("INFORMATION");
-            name.setText("Ada Blush");
-            size.setText("8");
-            location.setText("rack 8");
-            done.setText("done");
-        }
 
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
-}
+
+
+
 
 
 

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Validator;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -25,6 +26,7 @@ import java.util.Map;
 
 public class Inbound extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_CODE = 100;
+    private Validator mValidator;
     private CodeScanner mCodeScanner;
 
     private TextView scannedBarcode, prdName, prdColor, prdSize, prdQty;
