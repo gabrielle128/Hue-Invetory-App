@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     ImageButton menupopbtn;
-    Button Inventory, inbound, findlocation,aboutus;
+    Button Inventory, inbound, findlocation,aboutus, outbound;
 
 
 
@@ -31,6 +31,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),Inbound.class));
             }
         });
+
+        outbound = findViewById(R.id.btnOutbound);
+        outbound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),Outbound.class));
+            }
+        });
+
         findlocation = findViewById(R.id.btnFind);
         findlocation.setOnClickListener(new View.OnClickListener() {
             @Override
