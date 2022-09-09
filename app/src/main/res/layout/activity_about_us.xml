@@ -40,11 +40,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/glacialindiferrence_bold"
-        android:textSize="19sp"
+        android:textSize="18sp"
         android:textColor="@color/brown"
         android:layout_marginTop="50sp"
         android:gravity="center"
-        android:text="The Hue application was produced by 8 Bachelor of Science in Computer Engineering students in Polytechnic University of the Philippines as a partial requirement for completing the subject code: CMPE 30083, or the On The Job Training (OJT) 1 which is supervised by Oquindo, Florinda H. The mentioned students are the following:"/>
+        android:text="The Hue application was produced by 8 Bachelor of Science in Computer Engineering students in Polytechnic University of the Philippines as a partial requirement for completing the subject code: CMPE 30083, or the On The Job Training (OJT) 1 which is supervised by Oquindo, Florinda H and Cansino, Julius S. The mentioned students are the following:"/>
 
 
     <TextView
