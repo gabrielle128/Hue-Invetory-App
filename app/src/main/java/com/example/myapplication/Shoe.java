@@ -32,7 +32,13 @@ public class Shoe {
         product_code = code.substring(0, 7);
         product_color_code = code.substring(7, 10);
         product_size_code = code.substring(10, 12);
-        size = (int) Math.sqrt(Integer.parseInt(product_size_code));
+        if(product_size_code.equals("10")) {
+            size = Integer.parseInt(product_size_code);
+        } else if (product_size_code.equals("00")) {
+            size = 99;
+        } else {
+            size = (int) Math.sqrt(Integer.parseInt(product_size_code));
+        }
         this.bounds = bounds;
     }
 
